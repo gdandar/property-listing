@@ -1,10 +1,12 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+
 import { RootState } from "../../app/store";
+import { sortProperties } from "../../app/utils";
 import { fetchProperties } from "./propertiesAPI";
 import { Property } from "./types";
 
-type SortOptionAge = "newest" | "oldest";
-type SortOptionStatus = "sold" | "active";
+export type SortOptionAge = "newest" | "oldest";
+export type SortOptionStatus = "sold" | "active";
 
 export type PropertiesState = {
   properties: Array<any>;
@@ -22,9 +24,22 @@ const initialState: PropertiesState = {
 
 export const fetchPropertiesAsync = createAsyncThunk(
   "properties/getProperties",
-  async (query: string): Promise<Array<Property>> => {
+  async (query: string, { getState }): Promise<Array<Property>> => {
     const response = await fetchProperties(query);
-    return response.results;
+    const state = getState() as RootState;
+
+    const properties = (
+      response.results as Array<Property & { createdAt: string }>
+    ).map((property) => ({
+      ...property,
+      createdAt: Date.parse(property.createdAt),
+    }));
+
+    return sortProperties(
+      properties,
+      state.properties.sortOptionAge,
+      state.properties.sortOptionStatus
+    );
   }
 );
 
@@ -34,12 +49,22 @@ export const propertiesSlice = createSlice({
   reducers: {
     changeSortOptionAge: (state, action: PayloadAction<SortOptionAge>) => {
       state.sortOptionAge = action.payload;
+      state.properties = sortProperties(
+        state.properties,
+        state.sortOptionAge,
+        state.sortOptionStatus
+      );
     },
     changeSortOptionStatus: (
       state,
       action: PayloadAction<SortOptionStatus>
     ) => {
       state.sortOptionStatus = action.payload;
+      state.properties = sortProperties(
+        state.properties,
+        state.sortOptionAge,
+        state.sortOptionStatus
+      );
     },
   },
   extraReducers: (builder) => {
@@ -62,5 +87,11 @@ export const { changeSortOptionAge, changeSortOptionStatus } =
 
 export const selectProperties = (state: RootState) =>
   state.properties.properties;
+
+export const selectSortOptionAge = (state: RootState) =>
+  state.properties.sortOptionAge;
+
+export const selectSortOptionStatus = (state: RootState) =>
+  state.properties.sortOptionStatus;
 
 export default propertiesSlice.reducer;
