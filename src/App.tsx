@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
 
 import { css } from "@emotion/react";
+import { useState } from "react";
 import "./App.css";
 import { mq } from "./app/utils";
 import PropertyList from "./features/properties/PropertyList";
@@ -36,18 +37,41 @@ const layout = {
       "& > img": { width: "100%", height: "100%", objectFit: "cover" },
     })
   ),
-  list: css(
+  list: (showMap: boolean) =>
+    css(
+      mq({
+        gridColumn: ["3 / -3", "2"],
+        gridRow: "3",
+        backgroundColor: "rgba(1, 0, 0, 0.5)",
+        height: "100%",
+        overflowY: "scroll",
+        opacity: [showMap ? 0 : 1, 1],
+        transition: ["all 1s", "initial"],
+        transform: [`translate(${showMap ? "-1000px" : "0"})`, "translate(0)"],
+      })
+    ),
+  fader: css(
     mq({
-      gridColumn: ["3 / -3", "2"],
-      gridRow: "3",
-      backgroundColor: "rgba(1, 0, 0, 0.5)",
-      height: "100%",
-      overflowY: "scroll",
+      display: ["flex", "none"],
+      justifyContent: "center",
+      position: "fixed",
+      bottom: 10,
+      left: 0,
+      right: 0,
+      "& > button": {
+        //margin: "0 auto",
+      },
     })
   ),
 };
 
 function App() {
+  const [showMap, setShowMap] = useState(false);
+
+  const handleSwitch = () => {
+    setShowMap((show) => !show);
+  };
+
   return (
     <div css={layout.main}>
       <header css={layout.header}></header>
@@ -58,8 +82,11 @@ function App() {
       <div css={layout.map}>
         <img src="/map.jpg" />
       </div>
-      <div css={layout.list}>
+      <div css={layout.list(showMap)}>
         <PropertyList />
+      </div>
+      <div css={layout.fader}>
+        <button onClick={handleSwitch}>Switch</button>
       </div>
     </div>
   );
