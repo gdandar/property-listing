@@ -23,7 +23,7 @@ export const sortProperties = (
     ]
   );
 
-const breakpoints = [816, 992];
+const breakpoints = [600, 816, 992, 1200];
 export const mq = facepaint(
   breakpoints.map((bp) => `@media (min-width: ${bp}px)`)
 );

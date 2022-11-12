@@ -26,23 +26,23 @@ const layout = {
   filter: css(
     mq({
       backgroundColor: "blue",
-      gridColumn: ["1 / 3", "2 / 3"],
+      gridColumn: ["1 / 3", "1 / 3", "2 / 3"],
       gridRow: "2",
     })
   ),
   map: css(
     mq({
-      gridColumn: ["1 / 3", "1 / 2"],
-      gridRow: ["3", "2 / 4"],
+      gridColumn: ["1 / 3", "1 / 3", "1 / 2"],
+      gridRow: ["3", "3", "2 / 4"],
       "& > img": { width: "100%", height: "100%", objectFit: "cover" },
     })
   ),
   list: (showMap: boolean) =>
     css(
       mq({
-        gridColumn: ["3 / -3", "2"],
+        gridColumn: ["3 / -3", "3 / -3", "2"],
         gridRow: "3",
-        backgroundColor: "rgba(1, 0, 0, 0.5)",
+        backgroundColor: "#fff",
         height: "100%",
         overflowY: "scroll",
         opacity: [showMap ? 0 : 1, 1],
@@ -52,15 +52,12 @@ const layout = {
     ),
   fader: css(
     mq({
-      display: ["flex", "none"],
+      display: ["flex", "flex", "none"],
       justifyContent: "center",
       position: "fixed",
       bottom: 10,
       left: 0,
       right: 0,
-      "& > button": {
-        //margin: "0 auto",
-      },
     })
   ),
 };
