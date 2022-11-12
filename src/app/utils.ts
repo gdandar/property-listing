@@ -1,3 +1,4 @@
+import facepaint from "facepaint";
 import * as R from "remeda";
 import {
   SortOptionAge,
@@ -21,3 +22,8 @@ export const sortProperties = (
       sortOptionAge === "newest" ? "desc" : "asc",
     ]
   );
+
+const breakpoints = [816, 992];
+export const mq = facepaint(
+  breakpoints.map((bp) => `@media (min-width: ${bp}px)`)
+);

@@ -2,6 +2,7 @@ export type Property = {
   _id: string;
   createdAt: number;
   status: "active" | "sold";
+  images: Array<string>;
   address: {
     locality: string;
     route: string;
