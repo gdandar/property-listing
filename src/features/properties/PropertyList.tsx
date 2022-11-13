@@ -3,6 +3,7 @@
 import { css } from "@emotion/react";
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import AwarenessCard from "./AwerenessCard";
 import { fetchPropertiesAsync, selectProperties } from "./propertiesSlice";
 import PropertyCard from "./PropertyCard";
 
@@ -27,8 +28,14 @@ export default function PropertyList() {
       {propertiesStatus === "loading" ? (
         <div style={{ textAlign: "center" }}>Loading...</div>
       ) : (
-        properties.map((property) => (
-          <PropertyCard key={property._id} property={property} />
+        properties.map((property, index) => (
+          <>
+            <PropertyCard key={property._id} property={property} />
+            {(index === 1 ||
+              (properties.length < 2 && index === properties.length - 1)) && (
+              <AwarenessCard />
+            )}
+          </>
         ))
       )}
     </div>
