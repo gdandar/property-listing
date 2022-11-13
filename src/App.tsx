@@ -5,6 +5,7 @@ import { useState } from "react";
 import "./App.css";
 import { mq } from "./app/utils";
 import PropertyList from "./features/properties/PropertyList";
+import PropertyListTitle from "./features/properties/PropertyListTitle";
 import PropertySearch from "./features/properties/PropertySearch";
 import PropertySortOptions from "./features/properties/PropertySortOptions";
 
@@ -25,7 +26,7 @@ const layout = {
   }),
   filter: css(
     mq({
-      backgroundColor: "blue",
+      padding: "22px 32px",
       gridColumn: ["1 / 3", "1 / 3", "2 / 3"],
       gridRow: "2",
     })
@@ -73,6 +74,7 @@ function App() {
     <div css={layout.main}>
       <header css={layout.header}></header>
       <div css={layout.filter}>
+        <PropertyListTitle />
         <PropertySearch />
         <PropertySortOptions />
       </div>

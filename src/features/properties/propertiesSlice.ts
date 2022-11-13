@@ -88,6 +88,9 @@ export const { changeSortOptionAge, changeSortOptionStatus } =
 export const selectProperties = (state: RootState) =>
   state.properties.properties;
 
+export const selectPropertiesCount = (state: RootState) =>
+  state.properties.properties.length;
+
 export const selectSortOptionAge = (state: RootState) =>
   state.properties.sortOptionAge;
 
