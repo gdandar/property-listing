@@ -3,6 +3,7 @@
 import { css } from "@emotion/react";
 import { useState } from "react";
 import "./App.css";
+import { IconOpenDoor } from "./app/icons";
 import { mq } from "./app/utils";
 import ToggleMapButton from "./components/ToggleMapButton";
 import PropertyList from "./features/properties/PropertyList";
@@ -20,9 +21,12 @@ const layout = {
     gridTemplateRows: "72px auto 1fr",
   }),
   header: css({
-    backgroundColor: "green",
     gridColumn: "1 / 3",
     gridRow: "1",
+    boxShadow: "0 1px 4px rgb(68 89 109 / 15%)",
+    display: "flex",
+    alignItems: "center",
+    padding: "0 22px",
   }),
   listHeader: css(
     mq({
@@ -83,7 +87,9 @@ function App() {
 
   return (
     <div css={layout.main}>
-      <header css={layout.header}></header>
+      <header css={layout.header}>
+        <IconOpenDoor />
+      </header>
       <div css={layout.listHeader}>
         <PropertyListTitle />
         <div css={layout.filter(showMap)}>
