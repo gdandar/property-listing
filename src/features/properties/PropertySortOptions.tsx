@@ -1,4 +1,8 @@
+/** @jsxImportSource @emotion/react */
+
+import { css } from "@emotion/react";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import Select from "../../components/Select";
 import {
   changeSortOptionAge,
   changeSortOptionStatus,
@@ -8,6 +12,12 @@ import {
   SortOptionStatus,
 } from "./propertiesSlice";
 
+const select = {
+  wrapper: css({
+    display: "flex",
+  }),
+};
+
 export default function PropertySortOptions() {
   const searchOptionAge = useAppSelector(selectSortOptionAge);
   const searchOptionStatus = useAppSelector(selectSortOptionStatus);
@@ -15,25 +25,27 @@ export default function PropertySortOptions() {
   const dispatch = useAppDispatch();
 
   return (
-    <div>
-      <select
+    <div css={select.wrapper}>
+      <Select
+        options={[
+          { label: "Newest", value: "newest" },
+          { label: "Oldest", value: "oldest" },
+        ]}
         defaultValue={searchOptionAge}
-        onChange={(e) =>
-          dispatch(changeSortOptionAge(e.target.value as SortOptionAge))
+        onChange={(v) =>
+          dispatch(changeSortOptionAge(v.value as SortOptionAge))
         }
-      >
-        <option value="newest">Newest</option>
-        <option value="oldest">Oldest</option>
-      </select>
-      <select
+      />
+      <Select
+        options={[
+          { label: "Active", value: "active" },
+          { label: "Sold", value: "sold" },
+        ]}
         defaultValue={searchOptionStatus}
-        onChange={(e) =>
-          dispatch(changeSortOptionStatus(e.target.value as SortOptionStatus))
+        onChange={(v) =>
+          dispatch(changeSortOptionStatus(v.value as SortOptionStatus))
         }
-      >
-        <option value="active">Active</option>
-        <option value="sold">Sold</option>
-      </select>
+      />
     </div>
   );
 }

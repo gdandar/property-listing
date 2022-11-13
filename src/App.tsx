@@ -12,7 +12,6 @@ import PropertySortOptions from "./features/properties/PropertySortOptions";
 const layout = {
   main: css({
     display: "grid",
-    gap: 0,
     overflow: "hidden",
     height: "100vh",
     width: "100vw",
@@ -24,36 +23,47 @@ const layout = {
     gridColumn: "1 / 3",
     gridRow: "1",
   }),
-  filter: css(
+  listHeader: css(
     mq({
       padding: "22px 32px",
-      gridColumn: ["1 / 3", "1 / 3", "2 / 3"],
+      gridColumn: ["1 / 3", undefined, "2 / 3"],
       gridRow: "2",
     })
   ),
   map: css(
     mq({
-      gridColumn: ["1 / 3", "1 / 3", "1 / 2"],
-      gridRow: ["3", "3", "2 / 4"],
+      gridColumn: ["1 / 3", undefined, "1 / 2"],
+      gridRow: ["3", undefined, "2 / 4"],
       "& > img": { width: "100%", height: "100%", objectFit: "cover" },
     })
   ),
   list: (showMap: boolean) =>
     css(
       mq({
-        gridColumn: ["3 / -3", "3 / -3", "2"],
+        gridColumn: ["3 / -3", undefined, "2"],
         gridRow: "3",
         backgroundColor: "#fff",
         height: "100%",
         overflowY: "scroll",
-        opacity: [showMap ? 0 : 1, 1],
-        transition: ["all 1s", "initial"],
-        transform: [`translate(${showMap ? "-1000px" : "0"})`, "translate(0)"],
+        opacity: [showMap ? 0 : 1, undefined, 1],
+        transition: ["all 1s", undefined, "initial"],
+        transform: [
+          `translate(${showMap ? "-1000px" : "0"})`,
+          undefined,
+          "translate(0)",
+        ],
+      })
+    ),
+  filter: (showMap: boolean) =>
+    css(
+      mq({
+        display: [showMap ? "none" : "flex", undefined, "flex"],
+        transition: "all .2s ease",
       })
     ),
   fader: css(
     mq({
-      display: ["flex", "flex", "none"],
+      display: ["flex", undefined, "none"],
       justifyContent: "center",
       position: "fixed",
       bottom: 10,
@@ -73,13 +83,15 @@ function App() {
   return (
     <div css={layout.main}>
       <header css={layout.header}></header>
-      <div css={layout.filter}>
+      <div css={layout.listHeader}>
         <PropertyListTitle />
-        <PropertySearch />
-        <PropertySortOptions />
+        <div css={layout.filter(showMap)}>
+          <PropertySearch />
+          <PropertySortOptions />
+        </div>
       </div>
       <div css={layout.map}>
-        <img src="/map.jpg" />
+        <img alt="Map" src="/map.jpg" />
       </div>
       <div css={layout.list(showMap)}>
         <PropertyList />
