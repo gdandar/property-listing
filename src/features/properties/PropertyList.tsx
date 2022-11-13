@@ -24,10 +24,13 @@ export default function PropertyList() {
 
   return (
     <div css={styles}>
-      {propertiesStatus !== "loading" &&
+      {propertiesStatus === "loading" ? (
+        <div style={{ textAlign: "center" }}>Loading...</div>
+      ) : (
         properties.map((property) => (
           <PropertyCard key={property._id} property={property} />
-        ))}
+        ))
+      )}
     </div>
   );
 }
