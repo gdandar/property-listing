@@ -4,6 +4,7 @@ import { css } from "@emotion/react";
 import { useState } from "react";
 import "./App.css";
 import { mq } from "./app/utils";
+import ToggleMapButton from "./components/ToggleMapButton";
 import PropertyList from "./features/properties/PropertyList";
 import PropertyListTitle from "./features/properties/PropertyListTitle";
 import PropertySearch from "./features/properties/PropertySearch";
@@ -97,7 +98,7 @@ function App() {
         <PropertyList />
       </div>
       <div css={layout.fader}>
-        <button onClick={handleSwitch}>Switch</button>
+        <ToggleMapButton showMap={showMap} onClick={handleSwitch} />
       </div>
     </div>
   );
