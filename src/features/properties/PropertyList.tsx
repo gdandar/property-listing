@@ -29,13 +29,13 @@ export default function PropertyList() {
         <div style={{ textAlign: "center" }}>Loading...</div>
       ) : (
         properties.map((property, index) => (
-          <>
-            <PropertyCard key={property._id} property={property} />
+          <div key={property._id}>
+            <PropertyCard property={property} />
             {(index === 1 ||
               (properties.length < 2 && index === properties.length - 1)) && (
               <AwarenessCard />
             )}
-          </>
+          </div>
         ))
       )}
     </div>
