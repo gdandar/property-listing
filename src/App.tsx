@@ -2,7 +2,6 @@
 
 import { css } from "@emotion/react";
 import { useState } from "react";
-import "./App.css";
 import { IconOpenDoor } from "./app/icons";
 import { mq } from "./app/utils";
 import ToggleMapButton from "./components/ToggleMapButton";

@@ -48,7 +48,6 @@ export default function AwarenessCard() {
       <div css={style.title}>
         <h3>Make your strongest offer when you buy with Opendoor</h3>
         <a
-          role="link"
           href="https://buy.opendoor.com/offers/win?utm_source=bwod&amp;utm_medium=web&amp;utm_campaign=map&amp;referrer=https%3A%2F%2Fwww.opendoor.com%2Fhomes%2Ftampa%3Fmap%3Dfalse"
           aria-label="Learn more"
           target="__blank"
